@@ -1,20 +1,17 @@
-import express, { Application } from 'express';
-import { join } from 'path';
+import testRouter from './routes/test';
+import express, { Application, json, urlencoded } from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
-
-var app : Application = express();
+var app: Application = express();
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(json());
+app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//end point to test connectivity
+
+app.use('/test', testRouter);
 
 export default app;
